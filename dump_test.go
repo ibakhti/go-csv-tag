@@ -142,6 +142,23 @@ func TestREADMEExample(t *testing.T) {
 	}
 }
 
+func TestREADMEExampleNoHeader(t *testing.T) {
+
+	tab := []Demo{ // Create the slice where to put the file content
+		{
+			Name: "some name",
+			ID:   1,
+			Num:  0.000001,
+		},
+	}
+
+	err := DumpToFile(tab, "csv_files/csv_no_header.csv", CsvOptions{Noheader: true})
+
+	if err != nil {
+		t.Fail()
+	}
+}
+
 func TestDumpWithSemicolon(t *testing.T) {
 	buffer := bytes.Buffer{}
 

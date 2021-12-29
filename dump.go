@@ -47,9 +47,11 @@ func DumpToWriter(slice interface{}, writer io.Writer, options ...CsvOptions) er
 		csvWriter.Comma = option.Separator
 	}
 
-	err := csvWriter.Write(option.Header)
-	if err != nil {
-		return err
+	if !option.Noheader {
+		err := csvWriter.Write(option.Header)
+		if err != nil {
+			return err
+		}
 	}
 
 	for i := 0; i < reflectedValue.Len(); i++ {
@@ -72,7 +74,7 @@ func DumpToWriter(slice interface{}, writer io.Writer, options ...CsvOptions) er
 			}
 		}
 
-		err = csvWriter.Write(line)
+		err := csvWriter.Write(line)
 		if err != nil {
 			return err
 		}
